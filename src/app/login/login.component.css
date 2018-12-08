@@ -1,0 +1,24 @@
+h3 {
+    margin-bottom: 50px;
+}
+
+#section2 {
+    background-color: white;
+}
+
+#cards {
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    padding: 10px;
+    margin: 10px;
+}
+
+@media screen and (max-width: 720px){
+    #cards {
+        display: block;
+        margin-left: 12%;
+    }
+}
