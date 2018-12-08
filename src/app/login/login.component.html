@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h3 class="lead">Login to a new user</h3>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Account Number</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Account" [(ngModel)]="formModel.account">
+      <small id="emailHelp" class="form-text text-muted">Put your account number here.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="formModel.password">
+    </div>
+    <button (click)="login()" class="btn btn-primary" [disabled]="!isFormValid()">Login</button>
+</div>
+
+<div class="jumbotron" id="section2">
+  <h3 class="lead">All logged users</h3>
+  <div id="cards">
+      <div class="card" style="width: 15rem;" *ngFor="let user of users">
+          <img class="card-img-top" src="../../assets/User_Circle.png" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Name: {{ user.name }} <span></span> Account: {{ user.account }}</p>
+          </div>
+        </div>
+  </div>
+</div>
