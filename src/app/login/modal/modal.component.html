@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title">Create new account</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+      <ngx-loading [show]="loading"></ngx-loading>
+
+      <div class="form-group">
+          <label for="nameField">Name</label>
+          <input type="text" class="form-control" id="nameField" placeholder="Name" [(ngModel)]="formModel.accountOwner">
+      </div>
+      <div class="form-group">
+        <label for="accountNumber">Account number</label>
+        <input type="text" class="form-control" id="accountNumber" aria-describedby="emailHelp" placeholder="Enter acocunt" [(ngModel)]="formModel.accountNumber">
+      </div>
+      <div class="form-group">
+          <label for="balanceField">Balance</label>
+          <input type="number" class="form-control" id="balanceField" aria-describedby="emailHelp" placeholder="R$ 00.00" [(ngModel)]="formModel.accountBalance">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="formModel.accountPassword">
+      </div>
+
+      <p *ngIf="alert.show">
+          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+      </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
+    <button type="button" class="btn btn-outline-success ml-1" (click)="create()" [disabled]="!validForm()">Create</button>
+</div>

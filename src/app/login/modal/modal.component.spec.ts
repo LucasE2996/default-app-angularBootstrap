@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WithdrawComponent } from './withdraw.component';
+import { ModalComponent } from './modal.component';
 
-describe('WithdrawComponent', () => {
-  let component: WithdrawComponent;
-  let fixture: ComponentFixture<WithdrawComponent>;
+describe('ModalComponent', () => {
+  let component: ModalComponent;
+  let fixture: ComponentFixture<ModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WithdrawComponent ]
+      declarations: [ ModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WithdrawComponent);
+    fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
