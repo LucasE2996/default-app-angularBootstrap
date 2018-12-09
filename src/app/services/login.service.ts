@@ -16,15 +16,15 @@ export class LoginService {
     }
 
     public login(user: LoginFormModel): Observable<UserModel> {
-        return this.http.post<UserModel>(`/api/atm/login`, user);
+        return this.http.post<UserModel>(`/api/account/login`, user);
     }
 
-    public logout(): void {
-        localStorage.removeItem("loggedUsers");
+    public logout(accountNumber: string): Observable<void> {
+        return this.http.get<void>(`/api/account/logout/${accountNumber}`);
     }
 
-    public getLoggedUsers(): Array<UserModel> {
-        return JSON.parse(localStorage.getItem("loggedUsers"));
+    public getLoggedUsers(): Observable<Array<UserModel>> {
+        return this.http.get<Array<UserModel>>(`/api/account/loggedAccounts`);
     }
 
     /**

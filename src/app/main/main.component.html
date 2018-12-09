@@ -1,8 +1,29 @@
-<div class="jumbotron">
-    <div class="form-group">
+<ngx-loading [show]="loading"></ngx-loading>
+
+<div class="jumbotron" *ngIf="user">
+    <h3>Welcome, {{ user.accountOwner }}</h3>
+
+    <h5>Seu saldo atual: <span style="color:green;">R$ {{ user.accountBalance }}</span></h5>
+
+    <div class="form-group mt-5">
         <label for="withdrawField">Withdraw value</label>
-        <input type="number" class="form-control" id="withdrawField" aria-describedby="emailHelp" placeholder="R$ 00.00">
+        <input type="text" class="form-control" id="withdrawField" aria-describedby="emailHelp" placeholder="R$ 00.00" [(ngModel)]="withDrawValue">
         <small id="emailHelp" class="form-text text-muted">Make sure your balance is positive and ok.</small>
     </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Bank</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option *ngFor="let bank of banks">
+                {{ bank?.bankName}}
+            </option>
+        </select>
+    </div>
     <button class="btn btn-success" (click)="submmitWithdraw()">Submit</button>
+
+    <div *ngIf="bankNotes">
+        <p>{{ bankNotes.bankNote100 }}</p>
+        <p>{{ bankNotes.bankNote50 }}</p>
+        <p>{{ bankNotes.bankNote20 }}</p>
+        <p>{{ bankNotes.bankNote10 }}</p>
+    </div>
 </div>

@@ -27,8 +27,9 @@
       <div class="card" style="width: 15rem;" *ngFor="let user of users">
           <img class="card-img-top" src="../../assets/User_Circle.png" alt="Card image cap">
           <div class="card-body">
-            <p class="card-text">Name: {{ user.name }} Account: {{ user.account }}</p>
-            <button class="btn btn-success" (click)="goToHome(user.id)">Go !</button>
+            <p class="card-text">Name: {{ user.accountOwner }} Account: {{ user.accountNumber }}</p>
+            <button class="btn btn-success" (click)="goToHome(user.accountNumber)">Go !</button>
+            <button class="btn btn-danger" (click)="logout(user.accountNumber)">Exit</button>
           </div>
         </div>
   </div>

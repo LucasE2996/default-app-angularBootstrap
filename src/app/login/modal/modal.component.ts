@@ -22,12 +22,7 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.formModel = {
-      accountNumber: '',
-      accountOwner: '',
-      accountBalance: 0,
-      accountPassword: ''
-    } as CreateUserFormModel
+    this.formModel = { } as CreateUserFormModel
 
     this.alert = {
       type: 'danger',
@@ -42,7 +37,7 @@ export class ModalComponent implements OnInit {
       .subscribe((user: UserModel) => {
         this.loading = false;
       }, error => {
-        this.alert.message = `Error: ${error.message}`
+        this.alert.message = `Error: ${error.error.message}`
         this.alert.show = true;
         this.loading = false;
       }).add(() => this.close());

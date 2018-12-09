@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
     constructor(
-        public readonly http: HttpClient
+        private readonly http: HttpClient
     ) {
 
     }
@@ -17,6 +17,6 @@ export class UserService {
      * Creates a new user.
      */
     public createUser(user: CreateUserFormModel): Observable<UserModel> {
-        return this.http.post<UserModel>(`/api/atm/newAccount`, user);
+        return this.http.post<UserModel>(`/api/account/newAccount`, user);
     }
 }

@@ -32,20 +32,26 @@ export class LoginComponent implements OnInit {
     this.users = []
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.updateLoggedUsers();
+  }
 
   public login(): void {
     this.loading = true;
     this.loginService.login(this.formModel).subscribe((user: UserModel) => {
-      this.users.push(user);
+      this.updateLoggedUsers();
       this.loginService.showMenu(true);
       this.goToHome(user.accountNumber);
       this.loading = false;
     }, error => {
-      this.alert.message = `Error: ${error.message}`
+      this.alert.message = `Error: ${error.error.message}`
       this.alert.show = true;
       this.loading = false;
     });
+  }
+
+  public logout(accountNumber: string): void {
+    this.loginService.logout(accountNumber).subscribe( () => this.updateLoggedUsers());
   }
 
   public isFormValid(): boolean {
@@ -65,5 +71,16 @@ export class LoginComponent implements OnInit {
 
   public close(): void {
     this.alert.show = false;
+  }
+
+  private updateLoggedUsers(): void {
+    this.loading = true;
+    this.loginService.getLoggedUsers().subscribe((users: Array<UserModel>) => {
+      this.users = users;;
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      alert(`Error: ${error.error.message}`);
+    });
   }
 }
