@@ -10,6 +10,7 @@
       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="formModel.password">
     </div>
     <button (click)="login()" class="btn btn-primary" [disabled]="!isFormValid()">Login</button>
+    <button (click)="openModal()" class="btn btn-success ml-1">Register</button>
 </div>
 
 <div class="jumbotron" id="section2">
@@ -18,7 +19,8 @@
       <div class="card" style="width: 15rem;" *ngFor="let user of users">
           <img class="card-img-top" src="../../assets/User_Circle.png" alt="Card image cap">
           <div class="card-body">
-            <p class="card-text">Name: {{ user.name }} <span></span> Account: {{ user.account }}</p>
+            <p class="card-text">Name: {{ user.name }} Account: {{ user.account }}</p>
+            <button class="btn btn-success" (click)="goToHome(user.id)">Go !</button>
           </div>
         </div>
   </div>

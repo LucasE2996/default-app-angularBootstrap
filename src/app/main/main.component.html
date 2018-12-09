@@ -1,1 +1,8 @@
-<h1>app works!</h1>
+<div class="jumbotron">
+    <div class="form-group">
+        <label for="withdrawField">Withdraw value</label>
+        <input type="number" class="form-control" id="withdrawField" aria-describedby="emailHelp" placeholder="R$ 00.00">
+        <small id="emailHelp" class="form-text text-muted">Make sure your balance is positive and ok.</small>
+    </div>
+    <button class="btn btn-success" (click)="submmitWithdraw()">Submit</button>
+</div>

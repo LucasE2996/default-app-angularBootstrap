@@ -9,24 +9,32 @@ import { MainComponent } from './main/main.component';
 import { ServicesModule } from './services/services.module';
 import { LoginComponent } from './login/login.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { ModalComponent } from './login/modal/modal.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    WithdrawComponent
+    WithdrawComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    ServicesModule
+    ServicesModule,
+    HttpClientModule
   ],
   exports: [
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ModalComponent
+  ]
 })
 export class AppModule { }

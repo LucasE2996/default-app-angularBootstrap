@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public readonly http: HttpClient
+  ) { }
 
   ngOnInit() {
   }
 
+
+  public submmitWithdraw(): void {
+
+  }
 }
