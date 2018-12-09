@@ -1,11 +1,11 @@
 export interface LoginFormModel {
-    account: string;
-    password: string;
+    accountNumber: string;
+    accountPassword: string;
 }
 
 export interface CreateUserFormModel {
     accountNumber: string;
-    owner: string;
-    balance: number;
+    accountOwner: string;
+    accountBalance: number;
     accountPassword: string;
 }

@@ -26,10 +26,6 @@ export class AppComponent implements OnInit {
     this.loginService.showMenuEvent.subscribe(show => this.showMenu = show);
   }
 
-  public navigateToWithdraw(): void {
-    this.router.navigateByUrl(`${this.getCurrentId}/withdraw`);
-  }
-
   public navigateToHome(): void {
     this.router.navigateByUrl(`${this.getCurrentId}/main`);
   }

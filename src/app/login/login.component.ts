@@ -13,41 +13,57 @@ import { ModalComponent } from './modal/modal.component';
 })
 export class LoginComponent implements OnInit {
 
-  formModel: LoginFormModel;
-  users: Array<UserModel>;
+  public loading = false;
+  public formModel: LoginFormModel;
+  public users: Array<UserModel>;
+  public alert: Alert;
 
   constructor(
     public readonly loginService: LoginService,
     public readonly router: Router,
     private modalService: NgbModal
-  ) { }
-
-  ngOnInit() {
-    this.formModel = {account: '', password: ''} as LoginFormModel
-    this.users = JSON.parse(localStorage.getItem('loggedUsers'));
+  ) {
+    this.formModel = {accountNumber: '', accountPassword: ''} as LoginFormModel
+    this.alert = {
+      type: 'danger',
+      message: 'Error',
+      show: false
+    };
+    this.users = []
   }
+
+  ngOnInit() { }
 
   public login(): void {
-    this.loginService.login(this.formModel);
-    this.users = JSON.parse(localStorage.getItem('loggedUsers'));
-  }
-
-  public register(): void {
-    this.router.navigateByUrl(``);
+    this.loading = true;
+    this.loginService.login(this.formModel).subscribe((user: UserModel) => {
+      this.users.push(user);
+      this.loginService.showMenu(true);
+      this.goToHome(user.accountNumber);
+      this.loading = false;
+    }, error => {
+      this.alert.message = `Error: ${error.message}`
+      this.alert.show = true;
+      this.loading = false;
+    });
   }
 
   public isFormValid(): boolean {
-    return this.formModel.account !== undefined && this.formModel.account !== '' &&
-      this.formModel.password !== undefined && this.formModel.password !== ''
+    return this.formModel.accountNumber !== undefined && this.formModel.accountNumber !== '' &&
+      this.formModel.accountPassword !== undefined && this.formModel.accountPassword !== ''
   }
 
-  public goToHome(userId: number): void {
-    this.router.navigateByUrl(`${userId}/main`);
+  public goToHome(accountNumber: string): void {
+    this.router.navigateByUrl(`${accountNumber}/main`);
     this.loginService.showMenuEvent.emit(true);
   }
 
   public openModal(): void {
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.name = 'World';
+  }
+
+  public close(): void {
+    this.alert.show = false;
   }
 }

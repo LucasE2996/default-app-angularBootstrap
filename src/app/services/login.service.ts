@@ -1,36 +1,22 @@
 import { UserModel } from '../models/user.model';
 import { LoginFormModel } from '../models/login-form.model';
 import { Injectable, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class LoginService {
 
     public showMenuEvent = new EventEmitter();
 
-    constructor () {
+    constructor (
+        private readonly http: HttpClient
+    ) {
 
     }
 
-    public login(user: LoginFormModel): void {
-        // @TODO get user from server
-        localStorage.setItem("loggedUsers", JSON.stringify([{
-                id: this.timesTamp(),
-                account: user.account,
-                name: `USER_${this.timesTamp()}`
-            },
-            {
-                id: this.timesTamp(),
-                account: user.account,
-                name: `USER_${this.timesTamp()}`
-            },
-            {
-                id: this.timesTamp(),
-                account: user.account,
-                name: `USER_${this.timesTamp()}`
-            }
-        ]));
-        
-        this.showMenuEvent.emit(true);
+    public login(user: LoginFormModel): Observable<UserModel> {
+        return this.http.post<UserModel>(`/api/atm/login`, user);
     }
 
     public logout(): void {
@@ -41,7 +27,10 @@ export class LoginService {
         return JSON.parse(localStorage.getItem("loggedUsers"));
     }
 
-    private timesTamp(): number {
-        return Math.floor(Date.now() / 1000);
+    /**
+     * showMenu
+     */
+    public showMenu(value: boolean): void {
+        this.showMenuEvent.emit(value);        
     }
 }

@@ -12,6 +12,9 @@ import { UserModel } from 'src/app/models/user.model';
 export class ModalComponent implements OnInit {
 
   public formModel: CreateUserFormModel;
+  public loading = false;
+
+  public alert: Alert;
 
   constructor(
     private readonly activeModal: NgbActiveModal,
@@ -21,15 +24,39 @@ export class ModalComponent implements OnInit {
   ngOnInit() {
     this.formModel = {
       accountNumber: '',
-      owner: '',
-      balance: 0,
+      accountOwner: '',
+      accountBalance: 0,
       accountPassword: ''
     } as CreateUserFormModel
+
+    this.alert = {
+      type: 'danger',
+      message: 'Error',
+      show: false
+    };
   }
 
   public create(): void {
+    this.loading = true;
     this.userService.createUser(this.formModel)
-      .subscribe((user: UserModel) => user);
+      .subscribe((user: UserModel) => {
+        this.loading = false;
+      }, error => {
+        this.alert.message = `Error: ${error.message}`
+        this.alert.show = true;
+        this.loading = false;
+      }).add(() => this.close());
+  }
+
+  public validForm(): boolean {
+    return this.formModel.accountNumber !== undefined && this.formModel.accountNumber !== '' &&
+      this.formModel.accountOwner !== undefined && this.formModel.accountOwner !== '' &&
+      this.formModel.accountBalance !== undefined &&
+      this.formModel.accountPassword !== undefined && this.formModel.accountPassword !== '';
+  }
+
+  public close(): void {
+    this.alert.show = false;
   }
 
 }

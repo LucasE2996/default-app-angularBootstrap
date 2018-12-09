@@ -1,5 +1,5 @@
 export interface UserModel {
-    id: number;
-    account: string;
-    name: string;
+    accountNumber: string;
+    accountOwner: string;
+    accountBalance: number;
 }

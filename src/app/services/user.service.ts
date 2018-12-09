@@ -13,16 +13,10 @@ export class UserService {
 
     }
 
-    public getUser(id: number): UserModel {
-        // @TODO implement http get
-        return JSON.parse(localStorage.getItem('loggedUsers'))
-            .filter((user: UserModel) => user.id === id);
-    }
-
     /**
-     * createUser
+     * Creates a new user.
      */
     public createUser(user: CreateUserFormModel): Observable<UserModel> {
-        return this.http.post<UserModel>(`/api/newAccount`, user);
+        return this.http.post<UserModel>(`/api/atm/newAccount`, user);
     }
 }
