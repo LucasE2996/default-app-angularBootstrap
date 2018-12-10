@@ -79,8 +79,9 @@ export class LoginComponent implements OnInit {
       this.users = users;;
       this.loading = false;
     }, error => {
+      this.alert.message = `Error: ${error.error.message}`
+      this.alert.show = true;
       this.loading = false;
-      alert(`Error: ${error.error.message}`);
     });
   }
 }

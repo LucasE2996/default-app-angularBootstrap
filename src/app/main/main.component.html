@@ -3,7 +3,7 @@
 <div class="jumbotron" *ngIf="user">
     <h3>Welcome, {{ user.accountOwner }}</h3>
 
-    <h5>Seu saldo atual: <span style="color:green;">R$ {{ user.accountBalance }}</span></h5>
+    <h5>Actual balance: <span>R$ {{ user.accountBalance }}</span></h5>
 
     <div class="form-group mt-5">
         <label for="withdrawField">Withdraw value</label>
@@ -18,12 +18,17 @@
             </option>
         </select>
     </div>
+
+    <p *ngIf="alert.show">
+        <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+
     <button class="btn btn-success" (click)="submmitWithdraw()">Submit</button>
 
-    <div *ngIf="bankNotes">
-        <p>{{ bankNotes.bankNote100 }}</p>
-        <p>{{ bankNotes.bankNote50 }}</p>
-        <p>{{ bankNotes.bankNote20 }}</p>
-        <p>{{ bankNotes.bankNote10 }}</p>
+    <div *ngIf="bankNotes" class="mt-5">
+        <h4 *ngIf="bankNotes.bankNote100 > 0">R$ 100's Banknote: <span>{{ bankNotes.bankNote100 }}</span></h4>
+        <h4 *ngIf="bankNotes.bankNote50 > 0">R$ 50's Banknote: <span>{{ bankNotes.bankNote50 }}</span></h4>
+        <h4 *ngIf="bankNotes.bankNote20 > 0">R$ 20's Banknote: <span>{{ bankNotes.bankNote20 }}</span></h4>
+        <h4 *ngIf="bankNotes.bankNote10 > 0">R$ 10's Banknote: <span>{{ bankNotes.bankNote10 }}</span></h4>
     </div>
 </div>
