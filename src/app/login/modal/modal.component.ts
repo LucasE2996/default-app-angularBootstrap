@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
   public alert: Alert;
 
   constructor(
-    private readonly activeModal: NgbActiveModal,
+    public readonly activeModal: NgbActiveModal,
     private readonly userService: UserService
   ) { }
 
