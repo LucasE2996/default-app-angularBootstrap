@@ -17,6 +17,6 @@ export class UserService {
      * Creates a new user.
      */
     public createUser(user: CreateUserFormModel): Observable<UserModel> {
-        return this.http.post<UserModel>(`/api/account/newAccount`, user);
+        return this.http.post<UserModel>(`/api/account/createAccount`, user);
     }
 }

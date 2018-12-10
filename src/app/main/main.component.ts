@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../models/user.model';
-import { UserService } from '../services/user.service';
 import { LoginService } from '../services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { AtmService } from '../services/atm.service';
@@ -19,41 +18,44 @@ export class MainComponent implements OnInit {
   public bankNotes: BankNotesModel;
   public withDrawValue: string;
   public banks: Array<BankModel>;
+  public alert: Alert;
 
   constructor(
     private readonly loginService: LoginService,
     private readonly route: ActivatedRoute,
     private readonly atmService: AtmService
-  ) { }
+  ) {
+    this.alert = {type: "danger"} as Alert
+  }
 
   ngOnInit() {
     this.loading = true;
     let accountNumber: string;
     this.route.params.subscribe(params => {
       accountNumber = params['id']
-      this.loginService.getLoggedUsers().subscribe((users: Array<UserModel>) => {
-        this.user = users.filter((user: UserModel) => user.accountNumber === accountNumber)[0];
-        this.updateBanks();
-        this.loading = false;
-      }, error => {
-        this.loading = false;
-        alert(`Error: ${error.error.message}`);
-      });
+      this.updateAccount(accountNumber);
     }, error => {
+      this.alert.message = `Error: ${error.error.message}`
+      this.alert.show = true;
       this.loading = false;
-      alert(`Error: ${error.error.message}`);
     });    
   }
 
   public submmitWithdraw(): void {
     this.loading = true;
     this.atmService.submmitWithdraw(this.user.accountNumber, this.withDrawValue).subscribe((bankNotes: BankNotesModel) => {
+      this.updateAccount(this.user.accountNumber);
       this.bankNotes = bankNotes;
       this.loading = false;
     }, error => {
-      alert(`Error: ${error.error.message}`);
+      this.alert.message = `Error: ${error.error.message}`
+      this.alert.show = true;
       this.loading = false;
     });
+  }
+
+  public close(): void {
+    this.alert.show = false;
   }
 
   private updateBanks(): void {
@@ -62,7 +64,21 @@ export class MainComponent implements OnInit {
       this.banks = banks;
       this.loading = false;
     }, error => {
-      alert(`Error: ${error.error.message}`);
+      this.alert.message = `Error: ${error.error.message}`
+      this.alert.show = true;
+      this.loading = false;
+    });
+  }
+
+  private updateAccount(accountNumber: string): void {
+    this.loading = true;
+    this.loginService.getLoggedUsers().subscribe((users: Array<UserModel>) => {
+      this.user = users.filter((user: UserModel) => user.accountNumber === accountNumber)[0];
+      this.updateBanks();
+      this.loading = false;
+    }, error => {
+      this.alert.message = `Error: ${error.error.message}`
+      this.alert.show = true;
       this.loading = false;
     });
   }

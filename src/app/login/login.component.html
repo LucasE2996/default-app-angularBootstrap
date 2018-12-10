@@ -1,25 +1,32 @@
 <div class="jumbotron">
 
-    <ngx-loading [show]="loading"></ngx-loading>
+  <h1 class="mb-5" style="text-align:center">ATM Service</h1>
 
-  <h3 class="lead">Login to a new user</h3>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Account Number</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Account" [(ngModel)]="formModel.accountNumber">
-      <small id="emailHelp" class="form-text text-muted">Put your account number here.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="formModel.accountPassword">
-    </div>
+  <ngx-loading [show]="loading"></ngx-loading>
 
-    <p *ngIf="alert.show">
-        <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
-    </p>
+  <div class="mx-auto" style="max-width: 500px">
 
-    <button (click)="login()" class="btn btn-primary" [disabled]="!isFormValid()">Login</button>
-    <button (click)="openModal()" class="btn btn-success ml-1">Register</button>
+    <h3 class="lead" style="color:grey;text-align:center;">Login to a new user</h3>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Account Number</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Account" [(ngModel)]="formModel.accountNumber">
+        <small id="emailHelp" class="form-text text-muted">Put your account number here.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="formModel.accountPassword">
+      </div>
+
+      <p *ngIf="alert.show">
+          <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
+      </p>
+
+      <button (click)="login()" class="btn btn-primary" [disabled]="!isFormValid()">Login</button>
+      <button (click)="openModal()" class="btn btn-success ml-1">Register</button>
+  </div>
+
 </div>
+
 
 <div class="jumbotron" id="section2">
   <h3 class="lead">All logged users</h3>
@@ -29,7 +36,7 @@
           <div class="card-body">
             <p class="card-text">Name: {{ user.accountOwner }} Account: {{ user.accountNumber }}</p>
             <button class="btn btn-success" (click)="goToHome(user.accountNumber)">Go !</button>
-            <button class="btn btn-danger" (click)="logout(user.accountNumber)">Exit</button>
+            <button class="btn btn-danger ml-2" (click)="logout(user.accountNumber)">Exit</button>
           </div>
         </div>
   </div>

@@ -24,7 +24,7 @@ export class LoginService {
     }
 
     public getLoggedUsers(): Observable<Array<UserModel>> {
-        return this.http.get<Array<UserModel>>(`/api/account/loggedAccounts`);
+        return this.http.get<Array<UserModel>>(`https://atmgswmaisamaximo.herokuapp.com/account/loggedAccounts`);
     }
 
     /**

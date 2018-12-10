@@ -35,6 +35,8 @@ export class ModalComponent implements OnInit {
     this.loading = true;
     this.userService.createUser(this.formModel)
       .subscribe((user: UserModel) => {
+        alert("SUCCESS!");
+        this.close();
         this.loading = false;
       }, error => {
         this.alert.message = `Error: ${error.error.message}`
